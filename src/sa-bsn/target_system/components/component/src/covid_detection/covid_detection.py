@@ -1,29 +1,33 @@
 #!/usr/bin/env python
 import rospy
-from messages import targetsystemdata
+from messages.msg import TargetSystemData
 
 import pickle
 import pandas as pd
 
 def callback(data):
-    
+    caminho = __file__.replace("covid_detection.py", "model_covid_prediction.pkl")
     # Abrir o arquivo pickle e carregar o modelo
-    with open('src/beginner_tutorials/scripts/model_covid_prediction.pkl', 'rb') as file:
-        print("Abriu")
+    with open(caminho, 'rb') as file:
         model = pickle.load(file)
-    print("2")
 
-    # Realiza a previsao de um unico caso de teste
-    rospy.loginfo("trm_data %f" % (data.oxi_data))
-    rospy.loginfo("trm_data %f" % (data.ecg_data))
-    rospy.loginfo("trm_data C %f" % (data.trm_data))
-    rospy.loginfo("trm_data F %f" % ((data.trm_data * 1.8) + 32))
+    debug = 0
+    if(debug==1):
+        # Realiza a previsao de um unico caso de teste
+        rospy.loginfo("oxi_data %f" % (data.oxi_data))
+        rospy.loginfo("ecg_data %f" % (data.ecg_data))
+        rospy.loginfo("trm_data C %f" % (data.trm_data))
+        rospy.loginfo("trm_data F %f" % ((data.trm_data * 1.8) + 32))
     data_to_test = pd.DataFrame({'Oxygen': data.oxi_data, 'PulseRate': data.ecg_data, 'Temperature': ((data.trm_data * 1.8) + 32)}, index=[0])
-    print(model.predict(data_to_test))
+    resultado = model.predict(data_to_test)
+    if(resultado[0]==1):
+        rospy.loginfo("The patient's condition was compatible with a suspected case of Covid-19. Please see a doctor.")
+    else:
+        rospy.loginfo("The patient's condition appears to be without signs of Covid-19. If you experience any symptoms, consult a doctor")
 
 def listener():
     rospy.init_node('covid_detection_listener', anonymous=True)
-    rospy.Subscriber("TargetSystemData", dados_bsn, callback)
+    rospy.Subscriber("TargetSystemData", TargetSystemData, callback)
 
     # spin() simply keeps python from exiting until this node is stopped
     rospy.spin()

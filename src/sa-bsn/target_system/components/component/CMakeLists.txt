@@ -67,6 +67,11 @@ catkin_install_python(PROGRAMS src/covid_detection/covid_detection.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
+#add_custom_target(
+# run ALL
+# COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/src/covid_detection/covid_detection.py &
+#)
+
 ###########################################################################
 # Install this project.
 #INSTALL(TARGETS ${PROJECT_NAME}

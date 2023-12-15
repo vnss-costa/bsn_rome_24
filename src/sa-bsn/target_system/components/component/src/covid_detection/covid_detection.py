@@ -11,15 +11,16 @@ def callback(data):
     with open(caminho, 'rb') as file:
         model = pickle.load(file)
 
-    debug = 0
-    if(debug==1):
-        # Realiza a previsao de um unico caso de teste
-        rospy.loginfo("oxi_data %f" % (data.oxi_data))
-        rospy.loginfo("ecg_data %f" % (data.ecg_data))
-        rospy.loginfo("trm_data C %f" % (data.trm_data))
-        rospy.loginfo("trm_data F %f" % ((data.trm_data * 1.8) + 32))
     data_to_test = pd.DataFrame({'Oxygen': data.oxi_data, 'PulseRate': data.ecg_data, 'Temperature': ((data.trm_data * 1.8) + 32)}, index=[0])
     resultado = model.predict(data_to_test)
+    debug = 1
+    if(debug==1):
+        # Realiza a previsao de um unico caso de teste
+        rospy.loginfo("Debug: oxi_data %f" % (data.oxi_data))
+        rospy.loginfo("Debug: ecg_data %f" % (data.ecg_data))
+        rospy.loginfo("Debug: trm_data C %f" % (data.trm_data))
+        rospy.loginfo("Debug: trm_data F %f" % ((data.trm_data * 1.8) + 32))
+        rospy.loginfo("Debug: Covid suspect %i" % (resultado))
     if(resultado[0]==1):
         rospy.loginfo("The patient's condition was compatible with a suspected case of Covid-19. Please see a doctor.")
     else:

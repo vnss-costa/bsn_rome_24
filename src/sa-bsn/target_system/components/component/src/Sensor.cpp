@@ -183,7 +183,6 @@ double Sensor::collect_table(){
             }
             if(line_number_counter == line_marker) {
                 m_data = std::stof(line);
-                std::cout << m_data << std::endl;
                 last_line = 0;
                 return m_data;
             }

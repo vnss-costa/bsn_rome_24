@@ -20,7 +20,7 @@ G3T1_3::~G3T1_3() {}
 
 void G3T1_3::setUp() {
     Component::setUp();
-    
+    convert_name();
     std::array<bsn::range::Range,5> ranges;
     std::string s;
 

@@ -65,17 +65,18 @@ void Sensor::body() {
         data = collect();
 
         /*for data replication, as if replicate_collect values were collected*/
-        {
-            double sum;
-            for(int i = 0; i < replicate_collect; ++i) {
-                double aux_data = data;
-                apply_noise(aux_data);
-                sum += aux_data;
+        if(connected_sensor != 2){
+            {
+                double sum;
+                for(int i = 0; i < replicate_collect; ++i) {
+                    double aux_data = data;
+                    apply_noise(aux_data);
+                    sum += aux_data;
+                }
+                data = sum/replicate_collect;
             }
-            data = sum/replicate_collect;
+            data = process(data);
         }
-
-        data = process(data);
         transfer(data);
 		sendStatus("success");
         sendEnergyStatus(cost);

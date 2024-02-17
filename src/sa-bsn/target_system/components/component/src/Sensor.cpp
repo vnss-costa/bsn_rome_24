@@ -160,11 +160,14 @@ double Sensor::collect_simulation(){
 
 double Sensor::collect_table(){
     double m_data = -1;
+    ros::NodeHandle nh;
     // Get the path to the sensor data file
-    std::string path_file_to_read
+    std::string path_file_to_read;
     nh.getParam("absolut_path_read_files", path_file_to_read);
     path_file_to_read += name_node_sensor;
     path_file_to_read += ".csv";
+
+    ROS_INFO("Data Path = %s", path_file_to_read.c_str());
 
     std::ifstream file;
     file.open(path_file_to_read);

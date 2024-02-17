@@ -1,7 +1,7 @@
 <launch>
  
     <!-- Make sure the absolut path is correct according to the execution environment  -->
-    <param name="absolut_path_read_files" value="/workspaces/bsn_rome_24/RoME_execution/read_files" />
+    <param name="absolut_path_read_files" value="/workspaces/bsn_rome_24/RoME_execution/read_files/" />
 
     <include file="./src/sa-bsn/configurations/knowledge_repository/data_access.launch" /> <!-- KNOWLEDGE REPOSITORY -->
 
@@ -18,9 +18,5 @@
 
     <include file="./src/sa-bsn/configurations/target_system/g3t1_1.launch" /> <!-- APPLICATION -->
     <include file="./src/sa-bsn/configurations/target_system/g3t1_2.launch" /> <!-- APPLICATION -->
-    <include file="./src/sa-bsn/configurations/target_system/g3t1_3.launch" /> <!-- APPLICATION -->
-    <include file="./src/sa-bsn/configurations/target_system/g3t1_4.launch" /> <!-- APPLICATION -->
-    <include file="./src/sa-bsn/configurations/target_system/g3t1_5.launch" /> <!-- APPLICATION -->
-    <include file="./src/sa-bsn/configurations/target_system/g3t1_6.launch" /> <!-- APPLICATION -->
 
 </launch>

@@ -28,6 +28,11 @@ int32_t Sensor::run() {
 
     nh.getParam("connect_sensor_"+ros::this_node::getName(), connected_sensor);
     ROS_INFO("Sensor connected = %d", connected_sensor);
+
+    std::string absolut_path;
+
+    nh.getParam("absolut_path_read_files", absolut_path);
+    ROS_INFO("Absolut Path = %s", absolut_path.c_str());
     
 
 
@@ -232,7 +237,7 @@ void Sensor::convert_name() {
         name_node_sensor_simulation = "oxigenation";
     }
     else if(node_name == "/g3t1_2"){
-        name_node_sensor = "bpm";
+        name_node_sensor = "hr";
         name_node_sensor_simulation = "heart_rate";
     }
     else if(node_name == "/g3t1_3"){

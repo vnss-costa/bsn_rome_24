@@ -27,13 +27,7 @@ int32_t Sensor::run() {
     ros::Subscriber reconfig_subs = nh.subscribe("reconfigure_"+ros::this_node::getName(), 10, &Sensor::reconfigure, this);
 
     nh.getParam("connect_sensor_"+ros::this_node::getName(), connected_sensor);
-    ROS_INFO("Sensor connected = %d", connected_sensor);
-
-    std::string absolut_path;
-
-    nh.getParam("absolut_path_read_files", absolut_path);
-    ROS_INFO("Absolut Path = %s", absolut_path.c_str());
-    
+    ROS_INFO("Sensor connected = %d", connected_sensor);    
 
 
     sendStatus("init");
@@ -166,10 +160,9 @@ double Sensor::collect_simulation(){
 
 double Sensor::collect_table(){
     double m_data = -1;
-
     // Get the path to the sensor data file
-    std::string path_file_to_read = get_current_dir_name();
-    path_file_to_read += "/data_to_read/";
+    std::string path_file_to_read
+    nh.getParam("absolut_path_read_files", path_file_to_read);
     path_file_to_read += name_node_sensor;
     path_file_to_read += ".csv";
 

@@ -45,9 +45,9 @@
 
     <!-- Risk values for heart frequency -->
     <param name="heart_rate_HighRisk0" value="0,70" />
-    <param name="heart_rate_MidRisk0" value="0,0" />
-    <param name="heart_rate_LowRisk" value="70,115" />
-    <param name="heart_rate_MidRisk1" value="0,0" />
+    <param name="heart_rate_MidRisk0" value="70,85" />
+    <param name="heart_rate_LowRisk" value="85,97" />
+    <param name="heart_rate_MidRisk1" value="97,115" />
     <param name="heart_rate_HighRisk1" value="115,300" />
 
     <!-- Markov chain for temperature -->

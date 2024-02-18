@@ -7,6 +7,7 @@
 
 #include "archlib/ROSComponent.hpp"
 #include "messages/TargetSystemData.h"
+#include "services/PatientAdapt.h"
 
 class ContextAdaptation : public arch::ROSComponent {
     public:
@@ -21,6 +22,11 @@ class ContextAdaptation : public arch::ROSComponent {
 
         void collect(const messages::TargetSystemData::ConstPtr& msg);
         ros::NodeHandle nh;    
+
+        void monitor();
+        void analyze();
+        void plan();
+        void execute();
 
 };
 

@@ -36,3 +36,19 @@ void ContextAdaptation::collect(const messages::TargetSystemData::ConstPtr& msg)
     heart_rate = msg->ecg_data;
     spo2 = msg->oxi_data;
 }
+
+void ContextAdaptation::monitor() {
+
+}
+
+void ContextAdaptation::analyze() {
+
+}
+
+void ContextAdaptation::plan() {
+
+}
+
+void ContextAdaptation::execute() {
+    
+}

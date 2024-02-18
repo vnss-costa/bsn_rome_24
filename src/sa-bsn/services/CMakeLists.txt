@@ -25,6 +25,7 @@ FIND_PACKAGE(catkin REQUIRED COMPONENTS std_msgs message_generation)
 # Set message generation.
 ADD_SERVICE_FILES( FILES
   environment/patient/PatientData.srv
+  environment/patient/PatientAdapt.srv
 )
 
 GENERATE_MESSAGES(DEPENDENCIES std_msgs)

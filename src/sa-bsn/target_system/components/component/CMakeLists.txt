@@ -59,6 +59,11 @@ ADD_EXECUTABLE (g4t1 "${CMAKE_CURRENT_SOURCE_DIR}/apps/g4t1.cpp" ${${PROJECT_NAM
 TARGET_LINK_LIBRARIES (g4t1 ${catkin_LIBRARIES} ${LIBRARIES})
 ADD_DEPENDENCIES(g4t1 messages_generate_messages_cpp)
 
+SET(context_adaptation-src "${CMAKE_CURRENT_SOURCE_DIR}/src/context_adaptation/ContextAdaptation.cpp")
+ADD_EXECUTABLE (context_adaptation "${CMAKE_CURRENT_SOURCE_DIR}/apps/ContextAdaptation.cpp" ${${PROJECT_NAME}-src} ${context_adaptation-src})
+TARGET_LINK_LIBRARIES (context_adaptation ${catkin_LIBRARIES} ${LIBRARIES})
+ADD_DEPENDENCIES(context_adaptation messages_generate_messages_cpp)
+
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)

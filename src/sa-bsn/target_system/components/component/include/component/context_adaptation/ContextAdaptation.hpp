@@ -23,8 +23,7 @@ class ContextAdaptation : public arch::ROSComponent {
         void collect(const messages::TargetSystemData::ConstPtr& msg);
         ros::NodeHandle nh;
 
-        bool setHearRateRisks(float* lowRisk, float* MidRisk0, float* MidRisk1, float* highRisk0, float* highRisk1);
-        bool setOxigenationRisks(float* lowRisk, float* MidRisk0, float* MidRisk1, float* highRisk0, float* highRisk1);
+        bool setRisks(std::string vitalSign,float* lowRisk, float* MidRisk0, float* MidRisk1, float* highRisk0, float* highRisk1);
 
         void monitor();
         void analyze();

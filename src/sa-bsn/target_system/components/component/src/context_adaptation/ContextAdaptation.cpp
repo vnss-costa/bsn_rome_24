@@ -20,10 +20,13 @@ void ContextAdaptation::body() {
     while (ros::ok){
         ROS_INFO("Running");
 
-        float test[2];
-        test[0] = 0;
-        test[1] = 1;
-        setHearRateRisks(test, test, test, test, test);
+        float lr[2] = {65,72};
+        float mr0[2] = {50,64};
+        float mr1[2] = {72,115};
+        float hr0[2] = {0,49};
+        float hr1[2] = {116, 250};
+        std::string s = "oxigenation";
+        setRisks(s, lr, mr0, mr1, hr0, hr1);
 
         ros::spinOnce();
         loop_rate.sleep();            
@@ -42,10 +45,10 @@ void ContextAdaptation::collect(const messages::TargetSystemData::ConstPtr& msg)
     spo2 = msg->oxi_data;
 }
 
-bool ContextAdaptation::setHearRateRisks(float* lowRisk, float* MidRisk0, float* MidRisk1, float* highRisk0, float* highRisk1) {
+bool ContextAdaptation::setRisks(std::string vitalSign, float* lowRisk, float* MidRisk0, float* MidRisk1, float* highRisk0, float* highRisk1) {
     ros::ServiceClient client = nh.serviceClient<services::PatientAdapt>("contextAdapt");
     services::PatientAdapt srv;
-    srv.request.vitalSign = "heart_rate";
+    srv.request.vitalSign = vitalSign;
     srv.request.lowRisk_floor   = lowRisk[0];
     srv.request.lowRisk_ceil    = lowRisk[1];
     srv.request.MidRisk0_floor  = MidRisk0[0];
@@ -58,9 +61,10 @@ bool ContextAdaptation::setHearRateRisks(float* lowRisk, float* MidRisk0, float*
     srv.request.highRisk1_ceil  = highRisk1[1];
 
     if (client.call(srv)) {
-        ROS_INFO("Service is responsing... %d", srv.response.set);
+        if(srv.response.set) ROS_INFO("Params %s set successfully", vitalSign.c_str());
+        else ROS_INFO("Could not write params");
     } else {
-        ROS_INFO("Service is not respondg");
+        ROS_INFO("Service is not answering");
     }
 }
 

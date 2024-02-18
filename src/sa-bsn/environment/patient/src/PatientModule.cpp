@@ -10,6 +10,7 @@ void PatientModule::setUp() {
     // TODO change Operation to static
     std::string vitalSigns;
     service = nh.advertiseService("getPatientData", &PatientModule::getPatientData, this);
+    serviceAdapt = nh.advertiseService("contextAdapt", &PatientModule::setAdaptation, this);
     double aux;
 
     frequency = 1000;
@@ -109,3 +110,9 @@ void PatientModule::body() {
     }
 }
 
+
+bool PatientModule::setAdaptation(services::PatientAdapt::Request &request, services::PatientAdapt::Response &response) {
+    ROS_INFO("Got service request");
+    response.set = true;
+    return true;
+}

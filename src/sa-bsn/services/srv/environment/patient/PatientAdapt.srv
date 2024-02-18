@@ -1,0 +1,13 @@
+string vitalSign
+float64 lowRisk_floor
+float64 lowRisk_ceil
+float64 MidRisk0_floor
+float64 MidRisk0_ceil
+float64 MidRisk1_floor
+float64 MidRisk1_ceil
+float64 highRisk0_floor
+float64 highRisk0_ceil
+float64 highRisk1_floor
+float64 highRisk1_ceil
+---
+bool set

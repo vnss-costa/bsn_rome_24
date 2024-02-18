@@ -21,7 +21,9 @@ class ContextAdaptation : public arch::ROSComponent {
     private:
 
         void collect(const messages::TargetSystemData::ConstPtr& msg);
-        ros::NodeHandle nh;    
+        ros::NodeHandle nh;
+
+        //bool setHearRateRisks(float)  
 
         void monitor();
         void analyze();

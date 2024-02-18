@@ -3,8 +3,10 @@
 
 #include <ros/ros.h>
 #include <ros/console.h>
+#include <string>
 
 #include "archlib/ROSComponent.hpp"
+#include "messages/TargetSystemData.h"
 
 class ContextAdaptation : public arch::ROSComponent {
     public:
@@ -17,6 +19,7 @@ class ContextAdaptation : public arch::ROSComponent {
 
     private:
 
+        void collect(const messages::TargetSystemData::ConstPtr& msg);
         ros::NodeHandle nh;    
 
 };

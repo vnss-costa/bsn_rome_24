@@ -15,10 +15,9 @@ void ContextAdaptation::setUp() {
 }
 
 void ContextAdaptation::body() {
-    ros::NodeHandle n;
+    ros::Subscriber TargetSystemDataSub = nh.subscribe("TargetSystemData", 10, &ContextAdaptation::collect, this);
     ros::Rate loop_rate(rosComponentDescriptor.getFreq());
     while (ros::ok){
-        
         ROS_INFO("Running");
         ros::spinOnce();
         loop_rate.sleep();    
@@ -30,4 +29,10 @@ void ContextAdaptation::body() {
 
 void ContextAdaptation::tearDown() {
     ROS_INFO("Tearing down");
+}
+
+void ContextAdaptation::collect(const messages::TargetSystemData::ConstPtr& msg) {
+    float heart_rate, spo2;
+    heart_rate = msg->ecg_data;
+    spo2 = msg->oxi_data;
 }

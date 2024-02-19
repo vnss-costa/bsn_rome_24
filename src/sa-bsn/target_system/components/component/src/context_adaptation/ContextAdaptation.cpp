@@ -61,11 +61,15 @@ bool ContextAdaptation::setRisks(std::string vitalSign, float* lowRisk, float* M
     srv.request.highRisk1_ceil  = highRisk1[1];
 
     if (client.call(srv)) {
-        if(srv.response.set) ROS_INFO("Params %s set successfully", vitalSign.c_str());
+        if(srv.response.set) {
+            ROS_INFO("Params %s set successfully", vitalSign.c_str());
+            return true;
+        }
         else ROS_INFO("Could not write params");
     } else {
         ROS_INFO("Service is not answering");
     }
+    return false;
 }
 
 void ContextAdaptation::monitor() {

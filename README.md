@@ -6,23 +6,13 @@ The Self-Adaptive Body Sensor Network (SA-BSN) features an exempalr of self-adap
 
 The SA-BSN provides a platform for researchers and developers to explore and evaluate adaptive solutions in the Self-Adaptive Software Systems domain. It has been utilized in various experiments and studies, as referenced in the following publications: [[2]](https://doi.org/10.1145/3194133.3194147)[[3]](https://doi.org/10.1109/SEAMS.2019.00020)[[4]](https://doi.org/10.1145/3387939.3391595).
 
-## Recommended Reference
-
-```
-@INPROCEEDINGS{bsn,
-  author={Gil, Eric Bernd and Caldas, Ricardo and Rodrigues, Arthur and da Silva, Gabriel Levi Gomes and Rodrigues, Genaína Nunes and Pelliccione, Patrizio},
-  booktitle={2021 International Symposium on Software Engineering for Adaptive and Self-Managing Systems (SEAMS)}, 
-  title={Body Sensor Network: A Self-Adaptive System Exemplar in the Healthcare Domain}, 
-  year={2021},
-  pages={224-230},
-  doi={10.1109/SEAMS51251.2021.00037}}
-```
-
 ## Prerequisites
 
 [Docker](https://docs.docker.com/get-docker/)
 
 [Visual Studio Code](https://code.visualstudio.com/)
+
+[DevContainers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension for vscode.
 
 ## Getting Started
 
@@ -38,113 +28,35 @@ git clone https://github.com/lesunb/bsn_rome_24.git
 
 <img src="https://user-images.githubusercontent.com/12820045/200204482-808e8885-e511-44a5-9db4-778ed161913b.png" width="500">
 
-4. Once you have accepted it, the window will reload and build the development image.
+4. Once you have accepted it, the window will reload and build the development image and SA-BSN (this should take some minutes).
 
 ### Build the SA-BSN
 
-_(Jump this step if you are in our provided VM)_
-
-#### **Dependencies**
-
-[ROS Melodic for Ubuntu 18.04](http://wiki.ros.org/melodic/Installation/Ubuntu) is the underlying framework in which the SA-BSN runs.
-* Python 3.8 and python libraries:
-  * pickle
-  * pandas
-  * seaborn
-  * sklearn
-
-### 1.2) Execute the SA-BSN
-[Catkin](http://wiki.ros.org/ROS/Tutorials/InstallingandConfiguringROSEnvironment) for ROS packages management. 
-
-[Rosdep](https://wiki.ros.org/rosdep#Installing_rosdep) for ROS dependencies management.
-
-[Rosmon](http://wiki.ros.org/rosmon) for execution and node monitoring.
-
-[Rosserial](http://wiki.ros.org/rosserial_arduino) (optional) for execution with Arduino and sensors
-
-#### **Create clone and build**
-
-Clone the sa-bsn.
+To compile the SA-BSN
 
 ```
-git clone https://github.com/lesunb/bsn.git
-```
-
-Enter the sa-bsn folder, install internal dependencies, and then compile it with catkin.
-
-```
-cd bsn &&
-rosdep install --from-paths src --ignore-src -r -y &&
 catkin_make
-```
-
-To run tests:
-```
-catkin_make run_tests && catkin_test_results
 ```
 
 ### Execute the SA-BSN
 
-The SA-BSN's execution relies on a single command, where the argument (i.e., 600) represents the execution time (in seconds):
+The SA-BSN's execution relies on a single command, but first you need to ensure roscore to be running.
 
 ```
 roscore
 ```
 
+Then, in another terminal.
+
 ```
-cd bsn && 
 mon launch bsn.launch
-``` 
-
-If you want to coneect with Arduino and real sensors use:
-
-```
-roscore
-rosrun rosserial_python serial_node.py "Arduino serial port"
 ```
 
-The Arduino serial port is given by the operating system. In ubuntu it is usually "/dev/ttyACM0".
+Finally you need to execute the script that input the real data to SA-BSN
 
 ```
-cd bsn && 
-mon launch bsn_sensors.launch
-``` 
-
-In case you don't have rosmon installed, try:
-
-```
-cd bsn && 
-bash run.sh 600
-``` 
-
-For a customized execution, check the configuration files under sa-bsn/configurations.
-
-### Analyze the SA-BSN
-
-During the execution a logging mechanism records data in logfiles, that can be found in sa-bsn/src/knowledge_repository/resource/logs. Each logfile is named after a type of message and an id (i.e., logName_logID) and the entries are composed by the messages content.
-
-To compute the evolution of the QoS attributes (i.e., reliability and cost) over time and how well the adaptation manager adapts the system, we use a python script that reads the logs as input and plots a timeseries + displays adaptation metrics as output.
-
-The python script can be found at sa-bsn/src/sa-bsn/simulation/analyzer.
-
-To compute the QoS attributes and analyze the adaptation, type:
-
-```
-cd bsn/src/sa-bsn/simulation/analyzer
-python3 analyzer.py [logID] [metric] [plot_component_metrics] [setpoint]
-```
-
-where:
-
-* [logID] is the ID for the execution log files.
-* [metric] is the name of the QoS attribute (e.g., reliability)
-* [plot_component_metrics] is a boolean parameter that defines whether individual component's QoS attribute should be plotted or not.
-* [setpoint] is the value of the setpoint used in the execution.
-
-One example of the command usage is:
-
-```
-python3 analyzer.py 1610549979516318295 reliability False 0.9
+cd RoME_execution
+python3 script.py
 ```
 
 ## Common Mistakes
@@ -153,8 +65,7 @@ python3 analyzer.py 1610549979516318295 reliability False 0.9
 
 You might want to source the setup.bash inside the catkin workspace:
 ```
-echo "source ~/bsn/devel/setup.bash" >> ~/.bashrc
-source ~/.bashrc
+source devel/setup.bash
 ```
 
 Main Authors

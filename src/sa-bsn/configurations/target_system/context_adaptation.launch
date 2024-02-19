@@ -1,0 +1,4 @@
+<launch>
+    <node name="context_adaptation" pkg="component" type="context_adaptation" output="screen" />
+    <param name="context_frequency" value="1" /> 
+</launch>

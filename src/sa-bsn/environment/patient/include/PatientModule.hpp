@@ -4,6 +4,7 @@
 #include "libbsn/range/Range.hpp"
 #include <string>
 #include "services/PatientData.h"
+#include "services/PatientAdapt.h"
 #include <ros/console.h>
 
 #include "archlib/ROSComponent.hpp"
@@ -19,6 +20,7 @@ class PatientModule : public arch::ROSComponent {
 
     private:
         bool getPatientData(services::PatientData::Request &request, services::PatientData::Response &response);
+        bool setAdaptation(services::PatientAdapt::Request &request, services::PatientAdapt::Response &response);
         bsn::generator::DataGenerator configureDataGenerator(const std::string& vitalSign);
 
         std::map<std::string, bsn::generator::DataGenerator> patientData;
@@ -30,4 +32,5 @@ class PatientModule : public arch::ROSComponent {
         double period;
         ros::NodeHandle nh;
         ros::ServiceServer service;
+        ros::ServiceServer serviceAdapt;
 };

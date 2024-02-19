@@ -10,6 +10,7 @@ void PatientModule::setUp() {
     // TODO change Operation to static
     std::string vitalSigns;
     service = nh.advertiseService("getPatientData", &PatientModule::getPatientData, this);
+    serviceAdapt = nh.advertiseService("contextAdapt", &PatientModule::setAdaptation, this);
     double aux;
 
     frequency = 1000;
@@ -109,3 +110,75 @@ void PatientModule::body() {
     }
 }
 
+
+bool PatientModule::setAdaptation(services::PatientAdapt::Request &request, services::PatientAdapt::Response &response) {
+    std::string vitalSign = request.vitalSign;
+    ROS_INFO("Got an adaptation request for %s", vitalSign.c_str());
+    if(!(vitalSign.compare("heart_rate") == 0 || (vitalSign.compare("oxigenation") == 0))){
+        ROS_INFO("But is not a valid vital sign");
+        response.set = false;
+        return true;
+    }
+
+    std::stringstream aux;
+    if(vitalSign.compare("heart_rate") == 0) {
+
+        aux.str("");
+        aux << request.highRisk0_floor << "," << request.highRisk0_ceil;
+        nh.setParam("heart_rate_HighRisk0", aux.str().c_str());
+        ROS_INFO("heart_rate_HighRisk0 = %s", aux.str().c_str());
+
+        aux.str("");
+        aux << request.MidRisk0_floor << "," << request.MidRisk0_ceil;
+        nh.setParam("heart_rate_MidRisk0", aux.str().c_str());
+        ROS_INFO("heart_rate_MidRisk0 = %s", aux.str().c_str());
+
+        aux.str("");
+        aux << request.lowRisk_floor << "," << request.lowRisk_ceil;
+        nh.setParam("heart_rate_LowRisk", aux.str().c_str());
+        ROS_INFO("heart_rate_LowRisk = %s", aux.str().c_str());
+
+        aux.str("");
+        aux << request.MidRisk1_floor << "," << request.MidRisk1_ceil;
+        nh.setParam("heart_rate_MidRisk1", aux.str().c_str());
+        ROS_INFO("heart_rate_MidRisk1 = %s", aux.str().c_str());
+
+        aux.str("");
+        aux << request.highRisk1_floor << "," << request.highRisk1_ceil;
+        nh.setParam("heart_rate_HighRisk1", aux.str().c_str());
+        ROS_INFO("heart_rate_HighRisk1 = %s", aux.str().c_str());
+        
+        response.set = true;
+    }
+
+    else if(vitalSign.compare("oxigenation") == 0) {
+
+        aux.str("");
+        aux << request.highRisk0_floor << "," << request.highRisk0_ceil;
+        nh.setParam("oxigenation_HighRisk0", aux.str().c_str());
+        ROS_INFO("oxigenation_HighRisk0 = %s", aux.str().c_str());
+
+        aux.str("");
+        aux << request.MidRisk0_floor << "," << request.MidRisk0_ceil;
+        nh.setParam("oxigenation_MidRisk0", aux.str().c_str());
+        ROS_INFO("oxigenation_MidRisk0 = %s", aux.str().c_str());
+
+        aux.str("");
+        aux << request.lowRisk_floor << "," << request.lowRisk_ceil;
+        nh.setParam("oxigenation_LowRisk", aux.str().c_str());
+        ROS_INFO("oxigenation_LowRisk = %s", aux.str().c_str());
+
+        aux.str("");
+        aux << request.MidRisk1_floor << "," << request.MidRisk1_ceil;
+        nh.setParam("oxigenation_MidRisk1", aux.str().c_str());
+        ROS_INFO("oxigenation_MidRisk1 = %s", aux.str().c_str());
+
+        aux.str("");
+        aux << request.highRisk1_floor << "," << request.highRisk1_ceil;
+        nh.setParam("oxigenation_HighRisk1", aux.str().c_str());
+        ROS_INFO("oxigenation_HighRisk1 = %s", aux.str().c_str());
+        
+        response.set = true;
+    }
+    return true;
+}

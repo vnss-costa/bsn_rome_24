@@ -14,6 +14,8 @@ The SA-BSN provides a platform for researchers and developers to explore and eva
 
 [DevContainers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension for vscode.
 
+It is highly recommended to run on Linux!!
+
 ## Getting Started
 
 1. Clone this repository to your machine or create your own [fork](https://docs.github.com/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo) if you want to commit your own changes.

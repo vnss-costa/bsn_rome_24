@@ -16,23 +16,29 @@ The SA-BSN provides a platform for researchers and developers to explore and eva
   year={2021},
   pages={224-230},
   doi={10.1109/SEAMS51251.2021.00037}}
-``` 
+```
+
+## Prerequisites
+
+[Docker](https://docs.docker.com/get-docker/)
+
+[Visual Studio Code](https://code.visualstudio.com/)
 
 ## Getting Started
 
-Check our [demonstration video of the SA-BSN](https://youtu.be/iDEd_tW9JZE).
-
-Download our [SA-BSN Virtual Machine (Virtual Box) for People in a Hurry](https://drive.google.com/file/d/1RYrZ27LWRvqaxsgNcApXMxwrLK6BBPsV/view?usp=sharing). 
-(_~10 minutes!!_)
-
-The password from the virtual machine is the same as the user. So,
+1. Clone this repository to your machine or create your own [fork](https://docs.github.com/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo) if you want to commit your own changes.
 
 ```
-user: bsn
-password: bsn
+git clone https://github.com/lesunb/bsn_rome_24.git
 ```
 
-To compile and run the SA-BSN, follow the instructions (tested on Linux Ubuntu 18.04 with ROS Melodic): 
+2. With docker and Visual Studio Code properly installed, open this repository root in vscode.
+
+3. You shall see a prompt requesting to open the repo inside of a container, accept it; (Reopen in container).
+
+<img src="https://user-images.githubusercontent.com/12820045/200204482-808e8885-e511-44a5-9db4-778ed161913b.png" width="500">
+
+4. Once you have accepted it, the window will reload and build the development image.
 
 ### Build the SA-BSN
 

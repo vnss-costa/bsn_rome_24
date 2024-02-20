@@ -19,15 +19,6 @@ void ContextAdaptation::body() {
     ros::Rate loop_rate(rosComponentDescriptor.getFreq());
     while (ros::ok){
         ROS_INFO("Running");
-
-        float lr[2] = {65,72};
-        float mr0[2] = {50,64};
-        float mr1[2] = {72,115};
-        float hr0[2] = {0,49};
-        float hr1[2] = {116, 250};
-        std::string s = "oxigenation";
-        setRisks(s, lr, mr0, mr1, hr0, hr1);
-
         ros::spinOnce();
         loop_rate.sleep();            
     }   

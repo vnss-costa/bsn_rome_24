@@ -19,13 +19,6 @@ void ContextAdaptation::body() {
     ros::Rate loop_rate(rosComponentDescriptor.getFreq());
     while (ros::ok){
         ROS_INFO("Running");
-        float hr0[2] = {0,40};
-        float mr0[2] = {40,60};
-        float lr[2] = {60,80};
-        float mr1[2] = {80,100};
-        float hr1[2] = {115, 200};
-        std::string s = "heart_rate";
-        setRisks(s, lr, mr0, mr1, hr0, hr1);
         ros::spinOnce();
         loop_rate.sleep();            
     }   

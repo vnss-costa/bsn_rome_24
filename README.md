@@ -63,6 +63,32 @@ python3 script.py
 
 ## Common Mistakes
 
+### Different OS version vscode
+
+If you deal with a message like this, just click on allow, it shouldn't be a problem
+
+<img src="https://lh3.googleusercontent.com/drive-viewer/AEYmBYStY_oHKTlc4JdgloXj1mHMQubB9cUij83UODQG4_xpA0MiWh8PYtGHUR4keMmkfCHZFcqHPdy_o0j8VZqJKYQ-hJ9-aQ=w1920-h945" width="500">
+
+### Windows CRLF error
+
+If you are running on windows you might find this error with some files. 
+
+<img src="https://lh3.googleusercontent.com/drive-viewer/AEYmBYRsWxJ3CH5owLiOcqB_K9GBiXisjUlTKyULKqxFrUtGwCaaQYggBw1MjhGac9AOjHubb2uOiBcld_um5NknMQCZ4yQmLg=w1920-h945" width="700">
+
+That happens because windows has a different [line ending file](https://www.cs.toronto.edu/~krueger/csc209h/tut/line-endings.html) format and it copies it inside linux container.
+
+To solve this you can explicitate the format in vscode.
+
+Go to these two files, postCreate.sh and additional_bashrc.sh: 
+
+<img src="https://lh3.googleusercontent.com/drive-viewer/AEYmBYSfp7GCLOaQ60Yz0z7LPAm39wQb5M067-qdDLYuNtNVIwD76qbkdqFYyZBpMlJH0CV5LH7_-rmgs73s7Sa8_uGBXWR4VQ=w1920-h945" width="500">
+
+In the bottom right corner click on CRLF, change it to LF and save the files.
+
+<img src="https://lh3.googleusercontent.com/drive-viewer/AEYmBYTjgEmvMQyu8cRgub-R6g6nQxg84-NetBnyHRGGu6qzGe_86N17-SfJfUIrw1TXg8PBJw7HOVh1CjNsnZWXjhQLsik_1w=w1920-h945" width="500">
+
+Then rebuild the container.
+
 ### In case of error due to the ROS path
 
 You might want to source the setup.bash inside the catkin workspace:

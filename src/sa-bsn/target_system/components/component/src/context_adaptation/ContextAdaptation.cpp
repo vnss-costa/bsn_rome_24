@@ -64,8 +64,55 @@ bool ContextAdaptation::setRisks(std::string vitalSign, float* lowRisk, float* M
 }
 
 void ContextAdaptation::monitor() {
+    // Valores de frequência cardíaca para diferentes contextos
+    float sitting_low_risk_min = 85;
+    float sitting_low_risk_max = 97;
+    float sitting_mod_risk_min = 70;
+    float sitting_mod_risk_max = 115;
 
+    float running_low_risk_min = 100; // Valor estimado
+    float running_mod_risk_min = 100; // Valor estimado
+    float running_mod_risk_max = 150; // Valor estimado
+
+    float sleeping_low_risk_max = 60;
+    float sleeping_mod_risk_min = 60;
+    float sleeping_mod_risk_max = 70;
+
+    // Exemplo de dados de frequência cardíaca (substitua pelos dados reais)
+    std::vector<float> heart_rate_data = {90, 110, 130, 70, 140, 55, 120};
+
+    // Verifique os riscos com base nos valores de frequência cardíaca
+    for (float hr : heart_rate_data) {
+        if (hr >= sitting_low_risk_min && hr <= sitting_low_risk_max) {
+            std::cout << "Sitting - Low Risk: Heart Rate = " << hr << " bpm\n";
+        } else if ((hr >= sitting_mod_risk_min && hr < sitting_low_risk_min) ||
+                    (hr > sitting_low_risk_max && hr <= sitting_mod_risk_max)) {
+            std::cout << "Sitting - Moderate Risk: Heart Rate = " << hr << " bpm\n";
+        } else {
+            std::cout << "Sitting - High Risk: Heart Rate = " << hr << " bpm\n";
+        }
+
+        // Repita o mesmo processo para running e sleeping
+        // ...
+
+        // Exemplo: Verificação para running (valores estimados)
+        if (hr >= running_low_risk_min && hr <= running_mod_risk_max) {
+            std::cout << "Running - Low/Moderate Risk: Heart Rate = " << hr << " bpm\n";
+        } else {
+            std::cout << "Running - High Risk: Heart Rate = " << hr << " bpm\n";
+        }
+
+        // Exemplo: Verificação para sleeping
+        if (hr <= sleeping_low_risk_max) {
+            std::cout << "Sleeping - Low Risk: Heart Rate = " << hr << " bpm\n";
+        } else if (hr >= sleeping_mod_risk_min && hr <= sleeping_mod_risk_max) {
+            std::cout << "Sleeping - Moderate Risk: Heart Rate = " << hr << " bpm\n";
+        } else {
+            std::cout << "Sleeping - High Risk: Heart Rate = " << hr << " bpm\n";
+        }
+    }
 }
+
 
 void ContextAdaptation::analyze() {
 
